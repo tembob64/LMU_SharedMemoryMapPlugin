@@ -1,0 +1,475 @@
+#include "LMU_SharedMemoryMap.hpp"
+#include <stdlib.h>
+#include <cstddef>                              // offsetof
+#include "DirectMemoryReader.h"
+#include "Utils.h"
+#include <string>
+
+int TimerCount = 0;
+
+bool DirectMemoryReader::Initialize()
+{
+  __try {
+    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "Initializing DMR.");
+
+    //auto const startTicks = TicksNow();
+
+
+      auto const module = ::GetModuleHandle(nullptr);
+
+      //mPenaltyCount = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mPenaltyCountOffset ));
+      //if (mPenaltyCount == nullptr) {
+      //  DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "mPenaltyCount cannot created");
+      //  return false;
+      //}
+      //else
+      //{
+      //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyCount  created at 0x%p", mPenaltyCount);
+      //}
+
+      //mCuts = reinterpret_cast<float*>(Utils::GetValueFromMemory(module, mCutsOffset));
+      //if (mCuts == nullptr) {
+      //  DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve cuts status message");
+      //  return false;
+      //}
+      //else
+      //{
+      //  //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+      //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress 0x%p", mCuts);
+      //}
+
+      mMotorMap = reinterpret_cast<char*>(Utils::GetValueFromMemory(module, mMotorMapOffset));
+      if (mMotorMap == nullptr) {
+        DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mMotorMap status message");
+        return false;
+      }
+      else
+      {
+        //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress A2 0x%p", mMotorMap);
+      }
+
+      mChangedParamType = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mChangedParamTypeOffset));
+      if (mChangedParamType == nullptr) {
+        DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamType status message");
+        return false;
+      }
+      else
+      {
+        //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamType Adress A2 0x%p", mChangedParamType);
+      }
+
+      mChangedParamValue = reinterpret_cast<char*>(Utils::GetValueFromMemory(module, mChangedParamValueOffset));
+      if (mChangedParamValue == nullptr) {
+        DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamValue status message");
+        return false;
+      }
+      else
+      {
+        //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamValue Adress A2 0x%p", mChangedParamValue);
+      }
+
+
+   //auto const endTicks = TicksNow();
+
+  
+  }
+  __except (::GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+    DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Exception while reading memory, disabling DMA1.");
+    return false;
+  }
+
+  return true;
+}
+
+void DirectMemoryReader::ResetFounds()
+{
+  mPenaltyCountFound = false;
+  SeesionLive = false;
+  mCutsFound = false;
+  mCutsFoundOffset = 0uLL;
+  mPenaltyCountFoundOffset = 0uLL;
+}
+
+bool DirectMemoryReader::Read(LMU_Extended& extended, int mID, char mPlace)
+{
+  __try {
+
+
+
+    //if (mPenaltyCount != nullptr)
+    //{
+
+    //TimerCount--;
+    ///*  if (TimerCount <= 0 && SeesionLive)
+    //  {
+    //    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Penalties Start - mID: %d mPlace %d", mID, (int)mPlace);
+    //    for (int ind = 0; ind < 105; ind++) {
+    //      if ((int)*(mPenaltyCount + 0x4582uLL * ind) > 0 || (float)*(mCuts + 0x4582uLL * ind) > 0) {
+    //        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Index %d mPenaltyCount %d mCuts %.2f Addr P: 0x%p Addr C: 0x%p", ind, (int)*(mPenaltyCount + 0x4582uLL * ind), (float)*(mCuts + 0x4582uLL * ind), (mPenaltyCount + 0x4582uLL * ind), (mCuts + 0x4582uLL * ind));
+    //      }
+    //    }
+    //    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Penalties End");
+    //    TimerCount = 50;
+    //  }*/
+    //    
+
+    //  if (mID != -1)
+    //  {
+    //    auto mPenaltyCountCurrent = (mPenaltyCount + (unsigned long long)(0x4582uLL * mID));
+    //    extended.mPenaltyCount = (int)*mPenaltyCountCurrent;
+    //    auto mPenaltyLeftLaps = mPenaltyCountCurrent + 2uLL;
+    //    extended.mPenaltyLeftLaps = (int)*mPenaltyLeftLaps;
+    //    //auto mPenaltyType2 = mPenaltyLeftLaps + 20uLL;
+    //    auto mPenaltyTypeCurrent = mPenaltyCountCurrent + 3uLL;
+    //    auto mPendingPenaltyType1 = mPenaltyCountCurrent + 4uLL;
+    //    auto mPendingPenaltyType2 = mPenaltyCountCurrent + 7uLL;
+    //    auto mPendingPenaltyType3 = mPenaltyCountCurrent + 10uLL;
+
+    //    if (TimerCount < 0)
+
+    //    {
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mSlot %d mPlace %d", mID, mPlace);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyCount %d at 0x%p", (int)*(mPenaltyCountCurrent), mPenaltyCountCurrent);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyLeftLaps %d at 0x%p", *mPenaltyLeftLaps, mPenaltyLeftLaps);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyTypeCurrent %d at 0x%p", *mPenaltyTypeCurrent, mPenaltyTypeCurrent);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyType1 %d at 0x%p", *mPendingPenaltyType1, mPendingPenaltyType1);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyType2 %d at 0x%p", *mPendingPenaltyType2, mPendingPenaltyType2);
+    //      DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mPenaltyType3 %d at 0x%p", *mPendingPenaltyType3, mPendingPenaltyType3);
+    //    }
+    //    
+    //    extended.mPenaltyType = 0;
+    //    extended.mPendingPenaltyType1 = 0;
+    //    extended.mPendingPenaltyType2 = 0;
+    //    extended.mPendingPenaltyType3 = 0;
+
+    //    if (extended.mPenaltyCount > 0)
+    //    {
+    //      extended.mPenaltyType = (int)*mPenaltyCountCurrent;
+    //      if (extended.mPenaltyCount > 1) extended.mPendingPenaltyType1 = (int)*mPendingPenaltyType1;
+    //      if (extended.mPenaltyCount > 2) extended.mPendingPenaltyType2 = (int)*mPendingPenaltyType2;
+    //      if (extended.mPenaltyCount > 3 )extended.mPendingPenaltyType3 = (int)*mPendingPenaltyType3;
+    //    }
+    //    //if (*mPenaltyTypeCurrent == 1 && *mPenaltyCount == 1)  extended.mPenaltyType = 1; //DT Only
+    //    //if (*mPenaltyTypeCurrent == 0 && *mPenaltyCount == 1)  extended.mPenaltyType = 2; // SG Only
+    //    //if (*mPenaltyTypeCurrent == 0 && *mPendingPenaltyType1 == 1 && *mPenaltyCount >= 2)  extended.mPenaltyType = 3; // SGAndDTPendings
+    //    //if (*mPenaltyTypeCurrent == 1 && *mPendingPenaltyType1 == 1 && *mPenaltyCount >= 2)  extended.mPenaltyType = 4; // DTAndDTPendings
+    //    //if (*mPenaltyTypeCurrent == 1 && *mPendingPenaltyType1 == 10 && *mPenaltyCount >= 2)  extended.mPenaltyType = 5; // DTAndSGPendings
+    //    //if (*mPenaltyTypeCurrent == 0 && *mPendingPenaltyType1 == 10 && *mPenaltyCount >= 2)  extended.mPenaltyType = 6; // SGAndSGPendings
+    //    //if (extended.mPenaltyCount > 0 && extended.mPenaltyLeftLaps == 0) extended.mPenaltyType = 7; // DQ
+    //  }
+    //  //else
+    //  //{
+    //  //auto mPenaltyCountCurrent = mPenaltyCount;
+    //  //for (int ind = 1; ind <= 105; ind++) {
+    //  //  if ((int)*mPenaltyCountCurrent > 0 && (int)*(mPenaltyCountCurrent - 8uLL) == (int)mPlace)
+    //  //  {
+    //  //    mPenaltyCountFoundOffset = mPenaltyCountCurrent - mPenaltyCount;
+    //  //    mCutsFoundOffset = mPenaltyCountFoundOffset;
+    //  //    mPenaltyCountFound = true;
+    //  //    mCutsFound = true;
+    //  //    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Found mPenaltyCount = %d at addr: 0x%p ind: %d mSlot %d", *mPenaltyCountCurrent, mPenaltyCountCurrent, ind, mID);
+    //  //    break;
+    //  //  }
+    //  //  else
+    //  //  {
+    //  //    mPenaltyCountCurrent += 0x4582uLL;
+    //  //  }
+    //  //}
+    //  //}
+    //}
+
+
+    //  if (mCuts != nullptr)
+    //  {
+    //      if(mID != -1)
+    //      { 
+    //        auto mCutsCurrent = (mCuts + (unsigned long long)(0x4582uLL * mID));
+    //        extended.mCuts = (float)*mCutsCurrent;
+    //        if (TimerCount < 0)
+
+    //        {
+    //          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mCuts %.2f  at addr: 0x%p \r\n", extended.mCuts, mCuts);
+    //          TimerCount = 50;
+    //        }
+    //      }
+    //  }
+if (mID != -1)
+{
+
+      if (mMotorMap != nullptr)
+      {
+        char motorMap[16] = {0};
+        for (int i = 0; i < 16; i++)
+        {
+          unsigned long long Online = 0x0uLL;
+          auto mMapChar = mMotorMap + ((mID > 0) ? (Online + (mChangeParamSlotStep * (unsigned long long)mID)) : 0) + (unsigned long long)i;
+          
+          if (*mMapChar != 0)
+          {
+               motorMap[i] = *mMapChar;
+          }
+          else
+          {
+               motorMap[i] = 0;
+               break;
+          }
+        }
+        strcpy_s(extended.mpMotorMap, motorMap);
+        extended.mpMotorMap[15] = 0;
+       
+        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mpMotorMap %s  at addr: 0x%p \r\n", motorMap, mMotorMap);
+      }
+
+
+
+
+        if (mChangedParamType != nullptr)
+        {
+          auto mChangedParamTypeCurrent = (mChangedParamType + (mChangeParamSlotStepInt * (unsigned long long)mID));
+         extended.mChangedParamType = (int)*mChangedParamTypeCurrent;
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mChangedParamTypeCurrent, mChangedParamTypeCurrent, mID);
+        }
+
+        if (mChangedParamValue != nullptr)
+        {
+          auto mChangedParamValueCurrent = (mChangedParamValue + (unsigned long long)(mChangeParamSlotStep * mID));
+          char changedParamValue[16];
+          for (int i = 0; i < 16; i++)
+          {
+
+            auto mChangedParamValueChar = mChangedParamValueCurrent + (unsigned long long)i;
+
+            if (*mChangedParamValueChar != 0)
+            {
+              changedParamValue[i] = *mChangedParamValueChar;
+            }
+            else
+            {
+              changedParamValue[i] = 0;
+              break;
+            }
+          }
+          strcpy_s(extended.mChangedParamValue, changedParamValue);
+          extended.mChangedParamValue[15] = 0;
+
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "RegenLevel %s  at addr: 0x%p \r\n", changedParamValue, mChangedParamValueCurrent);
+        }
+      }
+      
+  }
+  __except (::GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+    DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Exception while reading memory, disabling DMA2.");
+    return false;
+  }
+
+
+  return true;
+}
+
+bool DirectMemoryReader::ReadOnNewSession(LMU_Extended& extended)
+{
+  __try {
+    SeesionLive = true;
+    //get base address
+    auto const module = ::GetModuleHandle(nullptr);
+    uintptr_t baseAddressPtr = reinterpret_cast<uintptr_t>(module);
+    /*DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "gets mCutsPoints 0x%p" , baseAddressPtr);*/
+    //add relative offset to get to pointer
+    uintptr_t playerPtr = baseAddressPtr + mCutsPointsOffset;
+    HANDLE pHandle = ::GetCurrentProcess();
+    //if (baseAddressPtr == 0uLL)
+    //{
+    //  DEBUG_MSG(DebugLevel::Errors, DebugSource::All, "Error get handle");
+    //  //return false;
+    //}
+    //int mCutsPointsAddr;
+    //if (ReadProcessMemory(pHandle, (LPVOID)playerPtr, &mCutsPointsAddr, sizeof(mCutsPointsAddr), NULL))
+    //{
+    //   extended.mCutsPoints = mCutsPointsAddr;
+    //   DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mCutsPoints = %d at Addr: 0x%p", extended.mCutsPoints, playerPtr);
+    //}
+    //else
+    //{
+    //  DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Error gets mCutsPoints");
+    //}
+     
+    //\x00\x00\x80\xBF\x00\x00\x80\xBF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF
+   //   00  00  80  BF  00  00  80  BF  02  00  00  00  FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF
+
+   /* mpBR = reinterpret_cast<char*>(Utils::FindPatternForPointerInMemory(module,
+      reinterpret_cast<unsigned char*>("\x9A\x99\x99\x99\x99\x99\x99\xBF\x7B\x14\xAE\x47\xE1\x7A\x74\x3F\x06\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01"),
+      "xxxxxxxxxxxxxxxxxxxx?xxxxxxxxxxxx", 20u));
+
+    if (mpBR == nullptr) {
+       DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve BR status message , disabling DMA.");
+      return false;
+    }*/
+    //DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Resolve BR status message.0x%p val: %d", mpBR, *mpBR);
+
+    /*ClearLSIValues(extended);
+
+    extended.mCurrentPitSpeedLimit = *mpCurrPitSpeedLimit;
+    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "Current pit speed limit: %f", extended.mCurrentPitSpeedLimit);*/
+  }
+  __except (::GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+    DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Excepction while reading memory, disabling DMA.");
+    return false;
+  }
+
+  return true;
+}
+
+//bool DirectMemoryReader::ReadOnLSIVisible(LMU_Extended& extended)
+//{
+//  __try {
+//    //if (mpStatusMessage == nullptr || mppMessageCenterMessages == nullptr || mpCurrPitSpeedLimit == nullptr || mpLSIMessages == nullptr) {
+//    //  assert(false && "DMR not available, should not call.");
+//    //  //return false;
+//    //}
+//
+//    //auto const pPhase = mpLSIMessages + 0x50uLL;
+//    //if (pPhase[0] != '\0'
+//    //  && strncmp(mPrevLSIPhaseMessage, pPhase, rF2Extended::MAX_RULES_INSTRUCTION_MSG_LEN) != 0) {
+//    //  strcpy_s(extended.mLSIPhaseMessage, pPhase);
+//    //  strcpy_s(mPrevLSIPhaseMessage, extended.mLSIPhaseMessage);
+//    //  extended.mTicksLSIPhaseMessageUpdated = ::GetTickCount64();
+//
+//    //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "LSI Phase message updated: '%s'", extended.mLSIPhaseMessage);
+//    //}
+//
+//    //auto const pPitState = mpLSIMessages + 0xD0uLL;
+//    //if (pPitState[0] != '\0'
+//    //  && strncmp(mPrevLSIPitStateMessage, pPitState, rF2Extended::MAX_RULES_INSTRUCTION_MSG_LEN) != 0) {
+//    //  strcpy_s(extended.mLSIPitStateMessage, pPitState);
+//    //  strcpy_s(mPrevLSIPitStateMessage, extended.mLSIPitStateMessage);
+//    //  extended.mTicksLSIPitStateMessageUpdated = ::GetTickCount64();
+//
+//    //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "LSI Pit State message updated: '%s'", extended.mLSIPitStateMessage);
+//    //}
+//
+//    //auto const pOrderInstruction = mpLSIMessages + 0x150uLL;
+//    //if (pOrderInstruction[0] != '\0'
+//    // && strncmp(mPrevLSIOrderInstructionMessage, pOrderInstruction, rF2Extended::MAX_RULES_INSTRUCTION_MSG_LEN) != 0) {
+//    //  strcpy_s(extended.mLSIOrderInstructionMessage, pOrderInstruction);
+//    //  strcpy_s(mPrevLSIOrderInstructionMessage, extended.mLSIOrderInstructionMessage);
+//    //  extended.mTicksLSIOrderInstructionMessageUpdated = ::GetTickCount64();
+//
+//    //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "LSI Order Instruction message updated: '%s'", extended.mLSIOrderInstructionMessage);
+//    //}
+//
+//    //auto const pRulesInstruction = mpLSIMessages + 0x1D0uLL;
+//    //if (mSCRPluginEnabled
+//    //  && pRulesInstruction[0] != '\0'
+//    //  && strncmp(mPrevLSIRulesInstructionMessage, pRulesInstruction, rF2Extended::MAX_RULES_INSTRUCTION_MSG_LEN) != 0) {
+//    //  strcpy_s(extended.mLSIRulesInstructionMessage, pRulesInstruction);
+//    //  strcpy_s(mPrevLSIRulesInstructionMessage, extended.mLSIRulesInstructionMessage);
+//    //  extended.mTicksLSIRulesInstructionMessageUpdated = ::GetTickCount64();
+//
+//    //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "LSI Rules Instruction message updated: '%s'", extended.mLSIRulesInstructionMessage);
+//    //}
+//  }
+//  __except (::GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
+//  {
+//    DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Exception while reading memory, disabling DMA.");
+//    return false;
+//  }
+//
+//  return true;
+//}
+
+
+void DirectMemoryReader::ReadSCRPluginConfig()
+{
+  char wd[MAX_PATH] = {};
+  ::GetCurrentDirectory(MAX_PATH, wd);
+
+  auto const configFilePath = lstrcatA(wd, R"(\UserData\player\CustomPluginVariables.JSON)");
+
+  auto configFileContents = Utils::GetFileContents(configFilePath);
+  if (configFileContents == nullptr) {
+    DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Failed to load CustomPluginVariables.JSON file");
+    return;
+  }
+
+  auto onExit = Utils::MakeScopeGuard([&]() {
+    delete[] configFileContents;
+  });
+
+  ReadSCRPluginConfigValues(configFileContents);
+}
+
+
+void DirectMemoryReader::ReadSCRPluginConfigValues(char* const configFileContents)
+{
+  // See if plugin is enabled:
+  auto curLine = strstr(configFileContents, "StockCarRules.dll");
+  while (curLine != nullptr) {
+    // Cut off next line from the current text.
+    auto const nextLine = strstr(curLine, "\r\n");
+    if (nextLine != nullptr)
+      *nextLine = '\0';
+
+    auto onExitOrNewIteration = Utils::MakeScopeGuard([&]() {
+      // Restore the original line.
+      if (nextLine != nullptr)
+        *nextLine = '\r';
+    });
+
+    auto const closingBrace = strchr(curLine, '}');
+    if (closingBrace != nullptr) {
+      // End of {} for a plugin.
+      return;
+    }
+
+    if (!mSCRPluginEnabled) {
+      // Check if plugin is enabled.
+      auto const enabled = strstr(curLine, " \" Enabled\":1");
+      if (enabled != nullptr)
+        mSCRPluginEnabled = true;
+    }
+
+    if (mSCRPluginDoubleFileType == -1L) {
+      auto const dft = strstr(curLine, " \"DoubleFileType\":");
+      if (dft != nullptr) {
+        char value[2] = {};
+        value[0] = *(dft + sizeof("\"DoubleFileType\":"));
+        mSCRPluginDoubleFileType = atol(value);
+      }
+    }
+
+    if (mSCRPluginEnabled && mSCRPluginDoubleFileType != -1L)
+      return;
+
+    curLine = nextLine != nullptr ? (nextLine + 2 /*skip \r\n*/) : nullptr;
+  }
+
+  // If we're here, consider SCR plugin as not enabled.
+  mSCRPluginEnabled = false;
+  mSCRPluginDoubleFileType = -1L;
+
+  return;
+}
+
+//void DirectMemoryReader::ClearLSIValues(LMU_Extended& extended)
+//{
+//  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "Clearing LSI values.");
+//
+//  //mPrevLSIPhaseMessage[0] = '\0';
+//  //extended.mLSIPhaseMessage[0] = '\0';
+//  //extended.mTicksLSIPhaseMessageUpdated = ::GetTickCount64();
+//
+//  //mPrevLSIPitStateMessage[0] = '\0';
+//  //extended.mLSIPitStateMessage[0] = '\0';
+//  //extended.mTicksLSIPitStateMessageUpdated = ::GetTickCount64();
+//
+//  //mPrevLSIOrderInstructionMessage[0] = '\0';
+//  //extended.mLSIOrderInstructionMessage[0] = '\0';
+//  //extended.mTicksLSIOrderInstructionMessageUpdated = ::GetTickCount64();
+//
+//  //mPrevLSIRulesInstructionMessage[0] = '\0';
+//  //extended.mLSIRulesInstructionMessage[0] = '\0';
+//  //extended.mTicksLSIRulesInstructionMessageUpdated = ::GetTickCount64();
+//}

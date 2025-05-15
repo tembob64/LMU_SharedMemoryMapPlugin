@@ -11,7 +11,7 @@ public:
   DirectMemoryReader() {}
 
   bool Initialize();
-  bool Read(LMU_Extended& extended, int mID, char mPlace);
+  bool Read(LMU_Extended& extended, int mID);
   bool ReadOnNewSession(LMU_Extended& extended);
   //bool ReadOnLSIVisible(LMU_Extended& extended);
 

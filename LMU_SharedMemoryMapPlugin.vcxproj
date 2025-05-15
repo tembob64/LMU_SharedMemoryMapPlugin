@@ -393,7 +393,7 @@
     <GenerateManifest>false</GenerateManifest>
     <CustomBuildAfterTargets>
     </CustomBuildAfterTargets>
-    <IncludePath>C:\Users\TB\Documents\Visual Studio 2022\Projects\LMU_SharedMemoryMapPlugin\Include;$(IncludePath)</IncludePath>
+    <IncludePath>.\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>

@@ -93,7 +93,7 @@ void DirectMemoryReader::ResetFounds()
   mPenaltyCountFoundOffset = 0uLL;
 }
 
-bool DirectMemoryReader::Read(LMU_Extended& extended, int mID, char mPlace)
+bool DirectMemoryReader::Read(LMU_Extended& extended, int mID)
 {
   __try {
 
@@ -273,46 +273,6 @@ bool DirectMemoryReader::ReadOnNewSession(LMU_Extended& extended)
 {
   __try {
     SeesionLive = true;
-    //get base address
-    auto const module = ::GetModuleHandle(nullptr);
-    uintptr_t baseAddressPtr = reinterpret_cast<uintptr_t>(module);
-    /*DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "gets mCutsPoints 0x%p" , baseAddressPtr);*/
-    //add relative offset to get to pointer
-    uintptr_t playerPtr = baseAddressPtr + mCutsPointsOffset;
-    HANDLE pHandle = ::GetCurrentProcess();
-    //if (baseAddressPtr == 0uLL)
-    //{
-    //  DEBUG_MSG(DebugLevel::Errors, DebugSource::All, "Error get handle");
-    //  //return false;
-    //}
-    //int mCutsPointsAddr;
-    //if (ReadProcessMemory(pHandle, (LPVOID)playerPtr, &mCutsPointsAddr, sizeof(mCutsPointsAddr), NULL))
-    //{
-    //   extended.mCutsPoints = mCutsPointsAddr;
-    //   DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mCutsPoints = %d at Addr: 0x%p", extended.mCutsPoints, playerPtr);
-    //}
-    //else
-    //{
-    //  DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Error gets mCutsPoints");
-    //}
-     
-    //\x00\x00\x80\xBF\x00\x00\x80\xBF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xFF\xFF\xFF\xFF
-   //   00  00  80  BF  00  00  80  BF  02  00  00  00  FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF
-
-   /* mpBR = reinterpret_cast<char*>(Utils::FindPatternForPointerInMemory(module,
-      reinterpret_cast<unsigned char*>("\x9A\x99\x99\x99\x99\x99\x99\xBF\x7B\x14\xAE\x47\xE1\x7A\x74\x3F\x06\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01"),
-      "xxxxxxxxxxxxxxxxxxxx?xxxxxxxxxxxx", 20u));
-
-    if (mpBR == nullptr) {
-       DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve BR status message , disabling DMA.");
-      return false;
-    }*/
-    //DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Resolve BR status message.0x%p val: %d", mpBR, *mpBR);
-
-    /*ClearLSIValues(extended);
-
-    extended.mCurrentPitSpeedLimit = *mpCurrPitSpeedLimit;
-    DEBUG_MSG(DebugLevel::DevInfo, DebugSource::DMR, "Current pit speed limit: %f", extended.mCurrentPitSpeedLimit);*/
   }
   __except (::GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
     DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Excepction while reading memory, disabling DMA.");

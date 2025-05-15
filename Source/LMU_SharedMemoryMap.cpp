@@ -405,7 +405,6 @@ void SharedMemoryPlugin::UpdateScoring(ScoringInfoV01 const& info)
   if (SharedMemoryPlugin::msDirectMemoryAccessRequested) {
 
     long mID = -1;
-    char mPlace = -1;
     for (int i = 0; i < info.mNumVehicles; ++i)
     {
       VehicleScoringInfoV01 vehicle = info.mVehicle[i];
@@ -413,12 +412,11 @@ void SharedMemoryPlugin::UpdateScoring(ScoringInfoV01 const& info)
         if (info.mVehicle[i].mIsPlayer)
         {
           mID = info.mVehicle[i].mID;
-          mPlace = info.mVehicle[i].mPlace;
           break;
         }
     }
 
-    if (!mDMR.Read(mExtStateTracker.mExtended, mID, mPlace)) {  // Read on FCY or Formation lap.
+    if (!mDMR.Read(mExtStateTracker.mExtended, mID)) {  // Read on FCY or Formation lap.
       DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "DMA read failed, disabling.");
 
       // Disable DMA on failure.

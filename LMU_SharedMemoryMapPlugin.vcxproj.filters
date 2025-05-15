@@ -28,9 +28,6 @@
     <Filter Include="includes">
       <UniqueIdentifier>{79e81626-698a-4723-adea-817fd98c4996}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lmu_includes">
-      <UniqueIdentifier>{34840d6d-c063-44e4-b500-d70edb6917bc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />

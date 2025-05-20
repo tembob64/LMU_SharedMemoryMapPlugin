@@ -199,7 +199,7 @@ bool DirectMemoryReader::Read(LMU_Extended& extended, int mID)
 if (mID != -1)
 {
 
-      if (mMotorMap != nullptr)
+ /*     if (mMotorMap != nullptr)
       {
         char motorMap[16] = {0};
         for (int i = 0; i < 16; i++)
@@ -221,7 +221,7 @@ if (mID != -1)
         extended.mpMotorMap[15] = 0;
        
         DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mpMotorMap %s  at addr: 0x%p \r\n", motorMap, mMotorMap);
-      }
+      }*/
 
 
 

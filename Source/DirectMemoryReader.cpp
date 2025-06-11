@@ -49,6 +49,28 @@ bool DirectMemoryReader::Initialize()
         DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress A2 0x%p", mMotorMap);
       }
 
+      mFront_ABR = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mFront_ABR_Offset));
+      if (mFront_ABR == nullptr) {
+          DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamType status message");
+          return false;
+      }
+      else
+      {
+          //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamType Adress A2 0x%p", mChangedParamType);
+      }
+
+      mRear_ABR = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mRear_ABR_Offset));
+      if (mRear_ABR == nullptr) {
+          DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamType status message");
+          return false;
+      }
+      else
+      {
+          //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamType Adress A2 0x%p", mChangedParamType);
+      }
+
       mChangedParamType = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mChangedParamTypeOffset));
       if (mChangedParamType == nullptr) {
         DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamType status message");
@@ -231,6 +253,20 @@ if (mID != -1)
           auto mChangedParamTypeCurrent = (mChangedParamType + (mChangeParamSlotStepInt * (unsigned long long)mID));
          extended.mChangedParamType = (int)*mChangedParamTypeCurrent;
           DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mChangedParamTypeCurrent, mChangedParamTypeCurrent, mID);
+        }
+
+        if (mFront_ABR != nullptr)
+        {
+            auto mFront_ABRCurrent = (mFront_ABR + (mChangeParamSlotStepInt * (unsigned long long)mID));
+            extended.mFront_ABR = (int)*mFront_ABRCurrent;
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mFront_ABRCurrent, mFront_ABRCurrent, mID);
+        }
+
+        if (mRear_ABR != nullptr)
+        {
+            auto mRear_ABRCurrent = (mRear_ABR + (mChangeParamSlotStepInt * (unsigned long long)mID));
+            extended.mRear_ABR = (int)*mRear_ABRCurrent;
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mRear_ABRCurrent, mRear_ABRCurrent, mID);
         }
 
         if (mChangedParamValue != nullptr)

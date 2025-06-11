@@ -146,6 +146,8 @@ struct LMU_Extended : public LMU_MappedBufferHeader
   char mpMotorMap[16];
   int mChangedParamType;
   char mChangedParamValue[16];
+  int mFront_ABR;
+  int mRear_ABR;
   int mPenaltyType;
   int mPenaltyCount;
   int mPenaltyLeftLaps;

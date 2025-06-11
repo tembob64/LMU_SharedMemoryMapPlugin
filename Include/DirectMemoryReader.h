@@ -34,11 +34,11 @@ private:
   const unsigned long long  mPenaltyType1Offset = 0x4069F8CuLL; //Byte mPenaltyType1 0x  156B478uLL
   const unsigned long long  mCutsOffset = 0x406A188uLL; //  2 mCutsOffset 0x156B678uLL
 
-  const unsigned long long  mMotorMapOffset = 0x407F4D0uLL; //41DBEE8 offset +0x48
-  const unsigned long long  mChangedParamTypeOffset = 0x407F180uLL; //mChangedParamValueOffset - 16 DEC 10 Hex
-  const unsigned long long  mChangedParamValueOffset = 0x407F190uLL; 
-  const unsigned long long mChangeParamSlotStep = 0x12620uLL; //0x11DB8uLL;
-  const unsigned long long mChangeParamSlotStepInt = 0x4988uLL;
+  const unsigned long long mMotorMapOffset = 0x19EC750uLL; //41DBEE8 offset +0x48
+  const unsigned long long mChangedParamTypeOffset = 0x19EC410uLL; //0x405FCB0uLL; offset -0x10
+  const unsigned long long mChangedParamValueOffset = 0x19EC420uLL; //0x405FCC0uLL; offset 0x00
+  const unsigned long long mChangeParamSlotStep = 0x1EEA8uLL; //0x11DB8uLL;
+  const unsigned long long mChangeParamSlotStepInt = 0x7BAAuLL;
   
  
   int* mCutsPoints = nullptr;

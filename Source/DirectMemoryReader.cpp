@@ -252,21 +252,21 @@ if (mID != -1)
         {
           auto mChangedParamTypeCurrent = (mChangedParamType + (mChangeParamSlotStepInt * (unsigned long long)mID));
          extended.mChangedParamType = (int)*mChangedParamTypeCurrent;
-          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mChangedParamTypeCurrent, mChangedParamTypeCurrent, mID);
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", (int)*mChangedParamTypeCurrent, mChangedParamTypeCurrent, mID);
         }
 
         if (mFront_ABR != nullptr)
         {
             auto mFront_ABRCurrent = (mFront_ABR + (mChangeParamSlotStepInt * (unsigned long long)mID));
             extended.mFront_ABR = (int)*mFront_ABRCurrent;
-            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mFront_ABRCurrent, mFront_ABRCurrent, mID);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", (int)*mFront_ABRCurrent, mFront_ABRCurrent, mID);
         }
 
         if (mRear_ABR != nullptr)
         {
             auto mRear_ABRCurrent = (mRear_ABR + (mChangeParamSlotStepInt * (unsigned long long)mID));
             extended.mRear_ABR = (int)*mRear_ABRCurrent;
-            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", mRear_ABRCurrent, mRear_ABRCurrent, mID);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", (int)*mRear_ABRCurrent, mRear_ABRCurrent, mID);
         }
 
         if (mChangedParamValue != nullptr)

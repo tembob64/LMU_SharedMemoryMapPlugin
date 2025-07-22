@@ -797,7 +797,7 @@
       <OutputFile>.\Release/LMU_SharedMemoryMapPlugin64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy $(Platform)\$(Configuration)\LMU_SharedMemoryMapPlugin64.dll "C:\Program Files (x86)\Steam\steamapps\common\Le Mans Ultimate\Plugins\."</Command>
+      <Command>copy $(Platform)\$(Configuration)\LMU_SharedMemoryMapPlugin64.dll "D:\SteamLibrary\steamapps\common\Le Mans Ultimate\Plugins\."</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MT|x64'">

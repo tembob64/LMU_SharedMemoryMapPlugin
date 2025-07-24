@@ -156,6 +156,15 @@ struct LMU_Extended : public LMU_MappedBufferHeader
   int mPendingPenaltyType3;
   float mCuts;
   int mCutsPoints;
+  double mCurrentBatteryValue;
+  double mMaxBatteryValue;
+  double mCurrentEnergyValue;
+  double mMaxEnergyValue;
+  double mCurrentFuelValue;
+  double mMaxFuelValue;
+  float mEnergyLastLap;
+  float mFuelLastLap;
+
 };
 
 

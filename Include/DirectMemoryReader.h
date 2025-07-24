@@ -33,14 +33,19 @@ private:
   const unsigned long long  mPenaltyTypeCurrentOffset = 0x4069F88uLL; //Byte mPenaltyTypeCurrent 0x156B474uLL
   const unsigned long long  mPenaltyType1Offset = 0x4069F8CuLL; //Byte mPenaltyType1 0x  156B478uLL
   const unsigned long long  mCutsOffset = 0x406A188uLL; //  2 mCutsOffset 0x156B678uLL
+  
+  const unsigned long long mFuelAndEnergyOffset = 0x1A16718uLL;
+  const unsigned long long mFuelLastLapOffset = 0x1A1CC14uLL;
+  //const unsigned long long mEnergyLastLapOffset = 0x1A1CC14uLL;
 
-  const unsigned long long mMotorMapOffset = 0x1A06B00uLL; //41DBEE8 offset +0x48
-  const unsigned long long mChangedParamTypeOffset = 0x1A067C0uLL; //0x19F8090uLL; //0x19F75D0uLL; //0x19ED430uLL; //0x405FCB0uLL; offset -0x10
-  const unsigned long long mChangedParamValueOffset = 0x1A067D0uLL; //0x19FA1A0uLL; //0x19F80A0uLL; //0x19F75E0uLL; //0x19ED440uLL; //0x19ED440uLL; offset 0x00
+  const unsigned long long mMotorMapOffset = 0x1A06BC0uLL; //41DBEE8 offset +0x48
+  const unsigned long long mChangedParamTypeOffset = 0x1A06880uLL;  // = mChangedParamValueOffset -0x10
+  const unsigned long long mChangedParamValueOffset = 0x1A06890uLL; //0x19FA1A0uLL; //0x19F80A0uLL; //0x19F75E0uLL; //0x19ED440uLL; //0x19ED440uLL; offset 0x00
   const unsigned long long mChangeParamSlotStep = 0x1EED8uLL; //0x11DB8uLL;  1CCDD38 2C7568
   const unsigned long long mChangeParamSlotStepInt = 0x7BB6uLL;
-  const unsigned long long mFront_ABR_Offset = 0x1A0BC04uLL; //0x19FD4B4uLL; //0x19FC9F4uLL; //0x19F2854uLL;
-  const unsigned long long mRear_ABR_Offset = 0x1A0BC94uLL; //0x19FD544uLL; //0x19FCA84uLL; //0x19F28E4uLL;
+  const unsigned long long mChangeParamSlotStepDouble = 0x3DDBuLL;
+  const unsigned long long mFront_ABR_Offset = 0x1A0BCC4uLL; 
+  const unsigned long long mRear_ABR_Offset = 0x1A0BD54uLL; // mFront_ABR_Offset + 0x90 
   
   
  
@@ -60,6 +65,8 @@ private:
   int* mFront_ABR = nullptr;
   int* mRear_ABR = nullptr;
   char* mChangedParamValue = nullptr;
+  double* mFuelAndEnergy = nullptr;
+  float* mFuelLastLap = nullptr;
   char* mRegenLevel = nullptr;
   float* mCuts = nullptr;
   bool mCutsFound = false;

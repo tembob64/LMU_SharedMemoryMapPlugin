@@ -87,12 +87,28 @@ bool DirectMemoryReader::Initialize()
         DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mChangedParamValue status message");
         return false;
       }
+
+      mFuelAndEnergy = reinterpret_cast<double*>(Utils::GetValueFromMemory(module, mFuelAndEnergyOffset));
+      if (mFuelAndEnergy == nullptr) {
+          DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mFuelAndEnergy status message");
+          return false;
+      }
       else
       {
         //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
         DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamValue Adress A2 0x%p", mChangedParamValue);
       }
-
+      mFuelLastLap = reinterpret_cast<float*>(Utils::GetValueFromMemory(module, mFuelLastLapOffset));
+      if (mFuelLastLap == nullptr) {
+          DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mFuelAndEnergy status message");
+          return false;
+      }
+      else
+      {
+          //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created mChangedParamValue Adress A2 0x%p", mChangedParamValue);
+      }
+      
 
    //auto const endTicks = TicksNow();
 
@@ -269,6 +285,44 @@ if (mID != -1)
             DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mChangedParamTypeCurrent %d  at addr: 0x%p slot %d \r\n", (int)*mRear_ABRCurrent, mRear_ABRCurrent, mID);
         }
 
+        if (mFuelLastLap != nullptr)
+        {
+            auto mFuelLastLapValue = (mFuelLastLap + (unsigned long long)(mChangeParamSlotStepInt * mID));
+            auto mEnergyLastLapValue = (mFuelLastLap + 4 + (unsigned long long)(mChangeParamSlotStepInt * mID));
+            extended.mFuelLastLap = (float)*mFuelLastLapValue;
+            extended.mEnergyLastLap = (float)*mEnergyLastLapValue;
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mFuelLastLapValue %f  at addr: 0x%p \r\n", *mFuelLastLapValue, mFuelLastLapValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mEnergyLastLapValue %f  at addr: 0x%p \r\n", *mEnergyLastLapValue, mEnergyLastLapValue);
+        }
+
+        if (mFuelAndEnergy != nullptr)
+        {
+            auto mCurrentBatteryValue = (mFuelAndEnergy + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+            auto mMaxBatteryValue = (mFuelAndEnergy + 2 + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+
+            auto mCurrentEnergyValue = (mFuelAndEnergy + 6 + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+            auto mMaxEnergyValue = (mFuelAndEnergy + 8 + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+
+            auto mCurrentFuelValue = (mFuelAndEnergy - 22 + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+            auto mMaxFuelValue = (mFuelAndEnergy - 20 + (unsigned long long)(mChangeParamSlotStepDouble * mID));
+
+            extended.mCurrentBatteryValue = (double)*mCurrentBatteryValue;
+            extended.mMaxBatteryValue = (double)*mMaxBatteryValue;
+            extended.mCurrentEnergyValue = (double)*mCurrentEnergyValue;
+            extended.mMaxEnergyValue = (double)*mMaxEnergyValue;
+            extended.mCurrentFuelValue = (double)*mCurrentFuelValue;
+            extended.mMaxFuelValue = (double)*mMaxFuelValue;
+           
+
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "CurrentBatteryValue %lf  at addr: 0x%p \r\n", *mCurrentBatteryValue, mCurrentBatteryValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mMaxBatteryValue %lf  at addr: 0x%p \r\n", *mMaxBatteryValue, mMaxBatteryValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mCurrentEnergyValue %lf  at addr: 0x%p \r\n", *mCurrentEnergyValue, mCurrentEnergyValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mMaxEnergyValue %lf  at addr: 0x%p \r\n", *mMaxEnergyValue, mMaxEnergyValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mCurrentFuelValue %lf  at addr: 0x%p \r\n", *mCurrentFuelValue, mCurrentFuelValue);
+            DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "mMaxFuelValue %lf  at addr: 0x%p \r\n", *mMaxFuelValue, mMaxFuelValue);
+
+        }
+
         if (mChangedParamValue != nullptr)
         {
           auto mChangedParamValueCurrent = (mChangedParamValue + (unsigned long long)(mChangeParamSlotStep * mID));
@@ -291,7 +345,7 @@ if (mID != -1)
           strcpy_s(extended.mChangedParamValue, changedParamValue);
           extended.mChangedParamValue[15] = 0;
 
-          DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "RegenLevel %s  at addr: 0x%p \r\n", changedParamValue, mChangedParamValueCurrent);
+          //DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "RegenLevel %s  at addr: 0x%p \r\n", changedParamValue, mChangedParamValueCurrent);
         }
       }
       

@@ -34,18 +34,18 @@ private:
   const unsigned long long  mPenaltyType1Offset = 0x4069F8CuLL; //Byte mPenaltyType1 0x  156B478uLL
   const unsigned long long  mCutsOffset = 0x406A188uLL; //  2 mCutsOffset 0x156B678uLL
   
-  const unsigned long long mFuelAndEnergyOffset = 0x1A1A6A0uLL; // mChangedParamValueOffset + 0xFE88
-  const unsigned long long mFuelLastLapOffset = 0x1A20DECuLL;   // mFuelAndEnergyOffset + 0x64FC
+  const unsigned long long mFuelAndEnergyOffset = 0x1A1B750uLL; //0x1A1A6A0uLL; // mChangedParamValueOffset + 0xFE88
+  const unsigned long long mFuelLastLapOffset = 0x1A21E9CuLL; //0x1A20DECuLL;   // mFuelAndEnergyOffset + 0x64FC
   //const unsigned long long mEnergyLastLapOffset = 0x1A1CC14uLL;
 
-  const unsigned long long mMotorMapOffset = 0x1A0A8C8uLL; //41DBEE8 offset +0x48
-  const unsigned long long mChangedParamTypeOffset = 0x1A0A870uLL;  // = mChangedParamValueOffset -0x10
-  const unsigned long long mChangedParamValueOffset = 0x1A0A880uLL; //0x1A06890uLL; // offset 0x00
+  const unsigned long long mMotorMapOffset = 0x1A0B978uLL; //0x1A0A8C8uLL; //41DBEE8 offset +0x48
+  const unsigned long long mChangedParamTypeOffset = 0x1A0B920uLL;  // = mChangedParamValueOffset -0x10
+  const unsigned long long mChangedParamValueOffset = 0x1A0B930uLL; //0x1A0A880uLL;  //0x1A06890uLL; // offset 0x00 
   const unsigned long long mChangeParamSlotStep = 0x1F050uLL; //0x11DB8uLL;  1CCDD38 2C7568
   const unsigned long long mChangeParamSlotStepInt = 0x7C14uLL;
   const unsigned long long mChangeParamSlotStepDouble = 0x3E0AuLL;
-  const unsigned long long mFront_ABR_Offset = 0x1A0FC4CuLL; //mChangedParamValueOffset + 0x5434
-  const unsigned long long mRear_ABR_Offset = 0x1A0FCDCuLL; // mFront_ABR_Offset + 0x90 
+  const unsigned long long mFront_ABR_Offset = 0x1A10CFCuLL; //0x1A0FC4CuLL; //mChangedParamValueOffset + 0x5434
+  const unsigned long long mRear_ABR_Offset = 0x1A10D8CuLL; //0x1A0FCDCuLL; // mFront_ABR_Offset + 0x90 
   
   
  

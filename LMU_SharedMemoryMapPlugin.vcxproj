@@ -766,7 +766,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>C:\Users\TB\Documents\Visual Studio 2022\Projects\LMU_SharedMemoryMapPlugin\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;INTERNALSPLUGIN_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -797,7 +797,7 @@
       <OutputFile>.\Release/LMU_SharedMemoryMapPlugin64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy $(Platform)\$(Configuration)\LMU_SharedMemoryMapPlugin64.dll "D:\SteamLibrary\steamapps\common\Le Mans Ultimate\Plugins\."</Command>
+      <Command>copy $(Platform)\$(Configuration)\LMU_SharedMemoryMapPlugin64.dll "C:\Program Files (x86)\Steam\steamapps\common\Le Mans Ultimate\Plugins\."</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MT|x64'">

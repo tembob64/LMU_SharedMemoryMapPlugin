@@ -38,16 +38,16 @@ bool DirectMemoryReader::Initialize()
       //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress 0x%p", mCuts);
       //}
 
-      mMotorMap = reinterpret_cast<char*>(Utils::GetValueFromMemory(module, mMotorMapOffset));
-      if (mMotorMap == nullptr) {
-        DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mMotorMap status message");
-        return false;
-      }
-      else
-      {
-        //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
-        DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress A2 0x%p", mMotorMap);
-      }
+      //mMotorMap = reinterpret_cast<char*>(Utils::GetValueFromMemory(module, mMotorMapOffset));
+      //if (mMotorMap == nullptr) {
+      //  DEBUG_MSG(DebugLevel::Errors, DebugSource::General, "Not Resolve mMotorMap status message");
+      //  return false;
+      //}
+      //else
+      //{
+      //  //auto mPenaltyType= mPenaltyLeftLaps - 4uLL;
+      //  DEBUG_MSG(DebugLevel::DevInfo, DebugSource::General, "Created Float Adress A2 0x%p", mMotorMap);
+      //}
 
       mFront_ABR = reinterpret_cast<int*>(Utils::GetValueFromMemory(module, mFront_ABR_Offset));
       if (mFront_ABR == nullptr) {

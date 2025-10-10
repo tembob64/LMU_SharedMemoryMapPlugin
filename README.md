@@ -1,4 +1,4 @@
-# Used as template https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin
+## **Used as template https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin**
 
 **Instalation:**
 1. Extract LMU_SharedMemoryMapPlugin64.dll  to GAME_Install_dir\Plugins folder

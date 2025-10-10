@@ -8,7 +8,8 @@
 
 ## CustomPluginVariables.JSON example
 
- <pre>
+
+```
  {
     "ChatTransceiver.dll": {
     " Enabled": 1
@@ -41,6 +42,4 @@
     "UnsubscribedBuffersMask": 160
   }
 };
-</pre>
-</body>
-</html>
+```

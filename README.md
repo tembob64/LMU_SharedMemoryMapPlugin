@@ -1,31 +1,12 @@
-﻿
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 15px;
-            border: 1px solid #ccc;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body>
-Used as template https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin
+# Used as template https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin
 
-Instalation:
-1. Extract LMU_SharedMemoryMapPlugin64.dll  to GAME_Install_dir\Plugins folder
-2. if new instalation, you need modify Game Plugins Settings file. GAME_Install_dir\UserData\player\CustomPluginVariables.JSON
-3. add or modify LMU_SharedMemoryMapPlugin64.dll section. set "Enabled" : 1 and "EnableDirectMemoryAccess": 1
+##Instalation:
+#1. Extract LMU_SharedMemoryMapPlugin64.dll  to GAME_Install_dir\Plugins folder
+#2. if new instalation, you need modify Game Plugins Settings file. GAME_Install_dir\UserData\player\CustomPluginVariables.JSON
+#3. add or modify LMU_SharedMemoryMapPlugin64.dll section. set "Enabled" : 1 and "EnableDirectMemoryAccess": 1
 
 
-CustomPluginVariables.JSON example
+##CustomPluginVariables.JSON example
 
  <pre>
  {

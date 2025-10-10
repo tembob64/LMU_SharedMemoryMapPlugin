@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Отображение JSON</title>
     <style>
         body {
             font-family: Arial, sans-serif;

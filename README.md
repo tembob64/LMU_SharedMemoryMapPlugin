@@ -30,11 +30,8 @@ Instalation:
 <div>
 CustomPluginVariables.JSON example
 </div>
-    <pre id="json-output"></pre>
-
-   <script>
-   // Пример JSON-объекта
-   const jsonData = {
+ <pre>
+ {
     "ChatTransceiver.dll": {
     " Enabled": 1
   },
@@ -66,8 +63,6 @@ CustomPluginVariables.JSON example
     "UnsubscribedBuffersMask": 160
   }
 };
-        // Преобразуем JSON в строку с отступами и вставляем в HTML
-        document.getElementById("json-output").textContent = JSON.stringify(jsonData, null, 4);
-    </script>
+</pre>
 </body>
 </html>

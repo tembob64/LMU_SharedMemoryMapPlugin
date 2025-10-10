@@ -5,9 +5,10 @@ Instalation:
 1. Extract archive content to GAME_Install_dir\Plugins folder
 2. if new instalation, you need modify Game Plugins Settings file. GAME_Install_dir\UserData\player\CustomPluginVariables.JSON
 3. add or modify LMU_SharedMemoryMapPlugin64.dll section. set "Enabled" : 1 and "EnableDirectMemoryAccess": 1
-
+<div>
 CustomPluginVariables.JSON example
-[CODE]{
+</div>
+<div>{
   "ChatTransceiver.dll": {
     " Enabled": 1
   },
@@ -38,4 +39,4 @@ CustomPluginVariables.JSON example
     "EnableWeatherControlInput": 0,
     "UnsubscribedBuffersMask": 160
   }
-}[/CODE]
+}</div>

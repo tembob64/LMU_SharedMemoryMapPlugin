@@ -8,8 +8,33 @@ Instalation:
 <div>
 CustomPluginVariables.JSON example
 </div>
-<div>{
-  "ChatTransceiver.dll": {
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отображение JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSON Данные</h1>
+    <pre id="json-output"></pre>
+
+    <script>
+        // Пример JSON-объекта
+        const jsonData = {
+    "ChatTransceiver.dll": {
     " Enabled": 1
   },
   "LMU_SharedMemoryMapPlugin64.dll": {
@@ -39,4 +64,9 @@ CustomPluginVariables.JSON example
     "EnableWeatherControlInput": 0,
     "UnsubscribedBuffersMask": 160
   }
-}</div>
+};
+        // Преобразуем JSON в строку с отступами и вставляем в HTML
+        document.getElementById("json-output").textContent = JSON.stringify(jsonData, null, 4);
+    </script>
+</body>
+</html>

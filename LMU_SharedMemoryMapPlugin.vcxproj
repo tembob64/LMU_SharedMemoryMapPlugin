@@ -1273,10 +1273,14 @@ if EXIST "D:\SteamLibrary\steamapps\common\Le Mans Ultimate" (copy $(Platform)\$
     <ClInclude Include="Include\LMU_SharedMemoryMap.hpp" />
     <ClInclude Include="Include\PluginObjects.hpp" />
     <ClInclude Include="Include\Utils.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LMU_SharedMemoryMapPlugin.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

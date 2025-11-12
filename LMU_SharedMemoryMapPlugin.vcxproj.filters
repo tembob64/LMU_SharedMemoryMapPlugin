@@ -23,6 +23,7 @@
     </ClInclude>
     <ClInclude Include="Include\InternalsPlugin.hpp" />
     <ClInclude Include="Include\PluginObjects.hpp" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="includes">
@@ -32,5 +33,8 @@
   <ItemGroup>
     <None Include="LICENSE" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LMU_SharedMemoryMapPlugin.rc" />
   </ItemGroup>
 </Project>
